@@ -1,4 +1,4 @@
-package com.savr.moviedb.Model;
+package com.savr.moviedb.model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;

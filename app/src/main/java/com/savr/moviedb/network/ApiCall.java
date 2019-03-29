@@ -1,4 +1,4 @@
-package com.savr.moviedb.Network;
+package com.savr.moviedb.network;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiCall {
 
-    public static final String BASE_URL = "http://api.themoviedb.org/3/";
+    private static final String BASE_URL = "http://api.themoviedb.org/3/";
     public final static String API_KEY = "e9906e4a57e2cf19f54dcba5a135d47f";
     public final static String IMAGE_URL = "http://image.tmdb.org/t/p/w500/";
 
