@@ -21,5 +21,4 @@ public interface ApiService {
 
     @GET("movie/{movie_id}")
     Observable<DetailMovieResponse> getDetailMovie(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
-
 }
