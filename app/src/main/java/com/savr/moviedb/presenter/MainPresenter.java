@@ -72,7 +72,6 @@ public class MainPresenter implements MainContract.Presenter {
                             mainView.showMessage("Response null");
                             mainView.showLoading(false);
                             mainView.showList(true);
-                            //Log.e("Error","Response null");
                         }
                     }
                 }));
