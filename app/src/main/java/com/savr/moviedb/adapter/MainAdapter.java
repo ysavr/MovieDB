@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 
 import com.savr.moviedb.R;
 import com.savr.moviedb.model.ResultsItem;
-import com.savr.moviedb.ui.MainActivity;
-import com.savr.moviedb.viewHolder.NowPlayingContainerViewHolder;
-import com.savr.moviedb.viewHolder.PopularContainerViewHolder;
+import com.savr.moviedb.view.viewHolder.NowPlayingContainerViewHolder;
+import com.savr.moviedb.view.viewHolder.PopularContainerViewHolder;
 
 import java.util.List;
 

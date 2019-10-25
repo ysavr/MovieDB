@@ -1,4 +1,4 @@
-package com.savr.moviedb.ui;
+package com.savr.moviedb.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;

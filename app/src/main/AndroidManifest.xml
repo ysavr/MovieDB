@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.DetailMovieActivity"
+            android:name=".view.activity.DetailMovieActivity"
             android:label="@string/title_activity_detail_movie"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".view.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".view.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
