@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.savr.moviedb.adapter.MainAdapter;
 import com.savr.moviedb.model.MovieResponse;
 import com.savr.moviedb.model.ResultsItem;
 import com.savr.moviedb.network.ApiCall;
@@ -29,9 +30,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BerandaAdapter adapter;
+    private MainAdapter adapter;
     private List<ResultsItem> movieListPopular = new ArrayList<>();
     private List<ResultsItem> movieListNowPlaying = new ArrayList<>();
+    private RecyclerView recycler_movie;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -43,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
-        RecyclerView recycler_movie = findViewById(R.id.recycler_popular);
+        recycler_movie = findViewById(R.id.recycler_popular);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler_movie.setLayoutManager(layoutManager);
-        adapter = new BerandaAdapter(getApplicationContext(), getLayoutInflater());
+        adapter = new MainAdapter(movieListPopular, movieListNowPlaying, getApplicationContext(), MainActivity.this, getLayoutInflater());
         recycler_movie.setAdapter(adapter);
         loadData();
 
@@ -80,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
             public void accept(MovieResponse movieResponse) throws Exception {
                 if (movieResponse != null){
                     movieListPopular = movieResponse.getResults();
-                    adapter.notifyItemChanged(BerandaAdapter.VIEWHOLDER_POPULAR);
+                    adapter = new MainAdapter(movieListPopular, movieListNowPlaying, getApplicationContext(), MainActivity.this, getLayoutInflater());
+                    recycler_movie.setAdapter(adapter);
+                    adapter.notifyItemChanged(adapter.getItemViewType(1));
                 }else {
                     Log.e("Error","Response null");
                 }
@@ -96,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
             public void accept(MovieResponse movieResponse) throws Exception {
                 if (movieResponse != null){
                     movieListNowPlaying = movieResponse.getResults();
-                    adapter.notifyItemChanged(BerandaAdapter.VIEWHOLDER_NOW_PAYING);
+                    adapter = new MainAdapter(movieListPopular, movieListNowPlaying, getApplicationContext(), MainActivity.this, getLayoutInflater());
+                    recycler_movie.setAdapter(adapter);
+                    adapter.notifyItemChanged(adapter.getItemViewType(0));
                 }else {
                     Log.e("Error","Response null");
                 }
@@ -110,50 +116,50 @@ public class MainActivity extends AppCompatActivity {
         compositeDisposable.clear();
     }
 
-    public class BerandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-        private static final int VIEWHOLDER_NOW_PAYING = 0;
-        private static final int VIEWHOLDER_POPULAR = 1;
-
-        private Context context;
-        private LayoutInflater layoutInflater;
-
-        private BerandaAdapter(Context context, LayoutInflater layoutInflater) {
-            this.context = context;
-            this.layoutInflater = layoutInflater;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return position;
-        }
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
-            switch (position){
-                case VIEWHOLDER_NOW_PAYING:
-                    return new NowPlayingContainerViewHolder(layoutInflater.inflate(R.layout.item_container_now_playing,parent,false));
-                case VIEWHOLDER_POPULAR:
-                    return new PopularContainerViewHolder(layoutInflater.inflate(R.layout.item_container_popular,parent,false));
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            if (holder instanceof NowPlayingContainerViewHolder){
-                ((NowPlayingContainerViewHolder) holder).setView(movieListNowPlaying, MainActivity.this, context);
-            }else if (holder instanceof PopularContainerViewHolder){
-                ((PopularContainerViewHolder) holder).setView(movieListPopular, MainActivity.this, context);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return 2;
-        }
-    }
+//    public class BerandaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+//
+//        private static final int VIEWHOLDER_NOW_PAYING = 0;
+//        private static final int VIEWHOLDER_POPULAR = 1;
+//
+//        private Context context;
+//        private LayoutInflater layoutInflater;
+//
+//        private BerandaAdapter(Context context, LayoutInflater layoutInflater) {
+//            this.context = context;
+//            this.layoutInflater = layoutInflater;
+//        }
+//
+//        @Override
+//        public int getItemViewType(int position) {
+//            return position;
+//        }
+//
+//        @NonNull
+//        @Override
+//        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
+//            switch (position){
+//                case VIEWHOLDER_NOW_PAYING:
+//                    return new NowPlayingContainerViewHolder(layoutInflater.inflate(R.layout.item_container_now_playing,parent,false));
+//                case VIEWHOLDER_POPULAR:
+//                    return new PopularContainerViewHolder(layoutInflater.inflate(R.layout.item_container_popular,parent,false));
+//                default:
+//                    return null;
+//            }
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+//            if (holder instanceof NowPlayingContainerViewHolder){
+//                ((NowPlayingContainerViewHolder) holder).setView(movieListNowPlaying, MainActivity.this, context);
+//            }else if (holder instanceof PopularContainerViewHolder){
+//                ((PopularContainerViewHolder) holder).setView(movieListPopular, MainActivity.this, context);
+//            }
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return 2;
+//        }
+//    }
 
 }
