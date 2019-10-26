@@ -1,8 +1,10 @@
 package com.savr.moviedb.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,10 +42,12 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private ImageView poster;
     private RecyclerView recyclerGenre;
     private ProgressBar progress;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private GenreAdapter adapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     //private GenreAdapter adapter;
     private DetailMovieContract.Presenter presenter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,10 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         movie_id = Integer.parseInt(getIntent().getStringExtra("movie_id"));
-        progress = findViewById(R.id.progress);
+        //progress = findViewById(R.id.progress);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
         tittle = findViewById(R.id.detail_movie_tittle);
         deskripsi = findViewById(R.id.detail_movie_deskripsi);
         poster = findViewById(R.id.detail_movie_image);
@@ -66,7 +73,9 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         recyclerGenre = findViewById(R.id.recyler_genre);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerGenre.setLayoutManager(layoutManager);
-
+        progressDialog = new ProgressDialog(DetailMovieActivity.this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
         //loadData();
         new DetailMoviePresenter(this, movie_id);
     }
@@ -105,13 +114,13 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
 
     @Override
     public void showLoading(boolean show) {
-        if (show) progress.setVisibility(View.VISIBLE);
-        else progress.setVisibility(View.GONE);
+        if (show) progressDialog.show();
+        else progressDialog.dismiss();
     }
 
     @Override
     public void showMovieDetail(DetailMovieResponse detailMovieResponse) {
-        tittle.setText(detailMovieResponse.getTitle());
+        tittle.setText(detailMovieResponse.getTagline());
         deskripsi.setText(detailMovieResponse.getOverview());
         releaseDate.setText(detailMovieResponse.getReleaseDate());
         rating.setText(String.valueOf(detailMovieResponse.getVoteAverage()));
@@ -120,6 +129,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         Picasso.with(getApplicationContext())
                 .load(ApiCall.IMAGE_URL+detailMovieResponse.getBackdropPath())
                 .into(poster);
+        collapsingToolbarLayout.setTitle(detailMovieResponse.getTitle());
         adapter = new GenreAdapter(detailMovieResponse.getGenres(), getLayoutInflater());
         recyclerGenre.setAdapter(adapter);
         recyclerGenre.setVisibility(View.VISIBLE);
