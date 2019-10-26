@@ -11,12 +11,16 @@ public interface DetailMovieContract {
 
         void showMovieDetail(DetailMovieResponse detailMovieResponse);
 
+        void showFavorite(boolean isFavorite);
+
         void showMessage(String message);
     }
 
     interface Presenter extends BasePresenter {
 
         void loadMovieDetail();
+
+        void favorite(int id);
 
     }
 }
