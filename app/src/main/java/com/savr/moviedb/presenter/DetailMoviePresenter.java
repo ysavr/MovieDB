@@ -32,6 +32,7 @@ public class DetailMoviePresenter implements DetailMovieContract.Presenter {
 
     @Override
     public void loadMovieDetail() {
+        detailView.showLoading(true);
         apiService = ApiCall.getClient().create(ApiService.class);
         compositeDisposable.add(apiService.getDetailMovie(movie_id, ApiCall.API_KEY)
                 .subscribeOn(Schedulers.io())

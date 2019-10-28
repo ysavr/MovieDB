@@ -3,7 +3,9 @@ package com.savr.moviedb.view.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +32,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
     private FloatingActionButton buttonFavorite;
     private RecyclerView recyclerGenre;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private CoordinatorLayout parenLayout;
     private GenreAdapter adapter;
     private DetailMovieContract.Presenter presenter;
     private ProgressDialog progressDialog;
@@ -44,6 +47,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         movie_id = Integer.parseInt(getIntent().getStringExtra("movie_id"));
+        parenLayout = findViewById(R.id.parent_layout);
         collapsingToolbarLayout = findViewById(R.id.collapsing);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
@@ -78,8 +82,14 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
 
     @Override
     public void showLoading(boolean show) {
-        if (show) progressDialog.show();
-        else progressDialog.dismiss();
+        if (show) {
+            progressDialog.show();
+            parenLayout.setVisibility(View.INVISIBLE);
+        }
+        else {
+            progressDialog.dismiss();
+            parenLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
