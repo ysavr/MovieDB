@@ -1,6 +1,7 @@
 package com.savr.moviedb.view.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -20,6 +21,7 @@ import com.savr.moviedb.adapter.GenreAdapter;
 import com.savr.moviedb.contract.DetailMovieContract;
 import com.savr.moviedb.model.DetailMovieResponse;
 import com.savr.moviedb.network.ApiCall;
+import com.savr.moviedb.pagination.PaginationActivity;
 import com.savr.moviedb.presenter.DetailMoviePresenter;
 import com.squareup.picasso.Picasso;
 
@@ -75,7 +77,8 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         buttonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.favorite(movie_id);
+//                presenter.favorite(movie_id);
+                startActivity(new Intent(DetailMovieActivity.this, PaginationActivity.class));
             }
         });
     }

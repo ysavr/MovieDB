@@ -8,4 +8,7 @@
     <color name="colorGreyLight">#8A8A8A</color>
     <color name="black">#000000</color>
     <color name="gold">#FFA500</color>
+    <color name="background">#EFEFEF</color>
+    <color name="placeholder_grey">#AAADC4</color>
+    <color name="placeholder_grey_20">#33AAADC4</color>
 </resources>
