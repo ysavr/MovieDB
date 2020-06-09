@@ -2,6 +2,7 @@ package com.savr.moviedb.network;
 
 import com.savr.moviedb.model.DetailMovieResponse;
 import com.savr.moviedb.model.MovieResponse;
+import com.savr.moviedb.model.toprated.TopRatedMovies;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -21,4 +22,12 @@ public interface ApiService {
 
     @GET("movie/{movie_id}")
     Observable<DetailMovieResponse> getDetailMovie(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
+
+    @GET("movie/top_rated")
+    Call<TopRatedMovies> getTopRatedMovies(
+            @Query("api_key") String apiKey,
+            @Query("language") String language,
+            @Query("page") int pageIndex
+    );
+
 }
