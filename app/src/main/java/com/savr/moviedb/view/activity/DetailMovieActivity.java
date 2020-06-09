@@ -3,14 +3,14 @@ package com.savr.moviedb.view.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -77,8 +77,7 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
         buttonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                presenter.favorite(movie_id);
-                startActivity(new Intent(DetailMovieActivity.this, PaginationActivity.class));
+                presenter.favorite(movie_id);
             }
         });
     }

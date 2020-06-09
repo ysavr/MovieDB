@@ -9,5 +9,6 @@
     <string name="error_msg_unknown">An unexpected error occurred</string>
     <string name="tap_to_reload">Tap to reload</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_other_movie">Other Movie</string>
     <string name="my_api_key">e9906e4a57e2cf19f54dcba5a135d47f</string>
 </resources>

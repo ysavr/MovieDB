@@ -1,30 +1,29 @@
 package com.savr.moviedb.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.savr.moviedb.adapter.MainAdapter;
 import com.savr.moviedb.contract.MainContract;
-import com.savr.moviedb.model.MovieResponse;
 import com.savr.moviedb.model.ResultsItem;
-import com.savr.moviedb.network.ApiCall;
-import com.savr.moviedb.network.ApiService;
 import com.savr.moviedb.R;
+import com.savr.moviedb.pagination.PaginationActivity;
 import com.savr.moviedb.presenter.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
@@ -55,6 +54,22 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         new MainPresenter(this);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_others:
+                startActivity(new Intent(this, PaginationActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
