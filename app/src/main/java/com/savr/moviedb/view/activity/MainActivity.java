@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         switch (item.getItemId()) {
             case R.id.menu_others:
                 startActivity(new Intent(this, PaginationActivity.class));
+                break;
+            case R.id.menu_room:
+                startActivity(new Intent(this, RoomActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

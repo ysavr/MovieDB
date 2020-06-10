@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".pagination.PaginationActivity"></activity>
+        <activity
+            android:name=".view.activity.RoomActivity"
+            android:label="@string/title_activity_room"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".pagination.PaginationActivity" />
         <activity
             android:name=".view.activity.DetailMovieActivity"
             android:label="@string/title_activity_detail_movie"
